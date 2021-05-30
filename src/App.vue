@@ -5,9 +5,17 @@
       <Header />
       <b-container class="question-container">
         <b-row>
-          <b-col sm="6" offset="3">
-            <QuestionBox />
-          </b-col>
+            <QuestionBox 
+              v-if="questions.length"
+              :currentQuestion="questions[index]"
+            />
+        </b-row>
+        <b-row>
+          <div>
+            <br><br><br>
+      <b-button @click="prev" class="prev-button" variant="success" href="#">Prev</b-button>
+      <b-button @click="next" class="next-button" variant="success" href="#">Next</b-button>
+          </div>
         </b-row>
       </b-container>
     </section>
@@ -29,7 +37,20 @@ export default {
   },
   data() {
     return {
-      questions:[]
+      questions:[],
+      index:0
+    }
+  },
+  methods: {
+    next(){
+      if(this.index < this.questions.length -1){
+        this.index ++
+      }
+    },
+    prev(){
+      if(this.index > 0){
+        this.index --
+      }
     }
   },
   mounted: function() {
@@ -62,8 +83,7 @@ h1 {
   font-size: 3rem;
   opacity: 0.8;
 }
-h2,
-p {
+h2, p {
   color: #658ec6;
   font-weight: 500;
   opacity: 0.8;
@@ -98,8 +118,7 @@ h3 {
   backdrop-filter: blur(2rem);
   /* display: flex; */
 }
-.circle1,
-.circle2 {
+.circle1, .circle2 {
   background: white;
   background: linear-gradient(
     to right bottom,
@@ -241,5 +260,19 @@ h3 {
   padding: 2rem;
   box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.212);
   justify-content: space-between;
+}
+
+.next-button {
+  display: block;
+  width: 15%;
+  float: right;
+background-color: #299797;
+}
+
+.prev-button {
+  display: block;
+  width: 15%;
+  float: left;
+background-color: #299797;
 }
 </style>
