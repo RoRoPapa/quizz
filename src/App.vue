@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       questions:[],
-      index:0
+      index:0,
     }
   },
   methods: {
@@ -107,7 +107,7 @@ h3 {
 .glass {
   background: white;
   min-height: 80vh;
-  width: 60%;
+  width: 40%;
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -133,11 +133,11 @@ h3 {
 
 .circle1 {
   top: 5%;
-  right: 15%;
+  right: 17%;
 }
 .circle2 {
   bottom: 5%;
-  left: 10%;
+  left: 18%;
 }
 .dashboard {
   flex: 1;
