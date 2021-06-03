@@ -2,7 +2,8 @@
   <div id="app" class="main">
     <!-- <main> -->
     <section class="glass">
-      <Header />
+      <Header 
+      />
       <b-container class="question-container">
         <b-row>
             <QuestionBox 
@@ -39,6 +40,8 @@ export default {
     return {
       questions:[],
       index:0,
+      correctCount: 0,
+      incorrectCount: 0
     }
   },
   methods: {

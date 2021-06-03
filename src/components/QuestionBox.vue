@@ -22,13 +22,13 @@
       <br />
       <b-button @click="validAnwser" variant="primary" href="#"
         >Anwser
-        <!-- <example-modal ref="modal-img"></example-modal> -->
       </b-button>
     </b-jumbotron>
 <div>
-  <b-button v-b-modal.modal-no-backdrop @click="getImg" ref="resultModal" style="display:none; "></b-button>
-  <b-modal id="modal-no-backdrop" hide-backdrop content-class="shadow" title="" hide-footer="true" hide-header="true" style="align-items: center;">
-    <img id="getImg" :src="link">
+  <b-button v-b-modal.modal-no-backdrop ref="resultModal" style="display:none; "></b-button>
+  <b-modal id="modal-no-backdrop" hide-backdrop content-class="shadow" title="" :hide-footer="true" :hide-header="true" style="align-items: center; text-aling:center;">
+    <img :src="link">
+    <h1>{{result}}</h1>
   </b-modal>
 </div>
 
@@ -62,17 +62,16 @@ export default {
       selected: "",
       showModal: false,
       index: 0,
-      link:''
+      link:'',
+      result:'',
+      incorrectCount: 0,
+      correctCount:0
     };
   },
   computed: {
     allAnwsers() {
-      let totalAnwsers = this.currentQuestion.incorrect_answers;
-      if (totalAnwsers.length < 4) {
-        totalAnwsers.push(this.currentQuestion.correct_answer);
-        totalAnwsers.sort(() => Math.random() - 0.4);
-      }
-      return totalAnwsers;
+      let totalAnwsers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer];
+      return totalAnwsers.sort(() => Math.random() - 0.4);
     },
   },
   methods: {
@@ -81,15 +80,18 @@ export default {
       if(this.selected){
       if (this.selected == this.currentQuestion.correct_answer) {
         mod = 'happy' ;
+        this.result = "Yep";
+        this.$root.$emit('correct', 1);
       }else{
         mod = 'sad';
+        this.result = "Nop";
+        this.$root.$emit('incorrect', 1);
       }
     let imgUrl = 'http://localhost:8081/api/cat/img/'+mod;
     var timestamp = new Date().getTime();  
     var queryString = "?t=" + timestamp;    
     this.link= imgUrl + queryString;    
     this.$refs.resultModal.click()
-
       }
     },
   },
